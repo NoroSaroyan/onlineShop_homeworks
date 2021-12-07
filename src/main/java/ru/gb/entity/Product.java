@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 @Data
 @Scope("session")
 
-public class Product {
+public class Product extends ru.gb.web.service.Product {
     @Id
     @GeneratedValue
     @Column(name = "productId")

@@ -1,6 +1,5 @@
 package ru.gb.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -52,7 +51,7 @@ public class CartController {
     }
 
     @PostMapping("/cartToAdd")
-    public String cartToAdd(@PathVariable long countProduct, Product product, @org.jetbrains.annotations.NotNull BindingResult bindingResult, Model model) {
+    public String cartToAdd(@PathVariable long countProduct, Product product, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "/products/products";

@@ -1,7 +1,5 @@
 package ru.gb.controller;
 
-
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -27,12 +25,12 @@ public class ProductController {
     @Autowired
     public ProductController(ProductRepository productService, CategoryRepository categoryRepository) {
         this.productService = productService;
-        this.categoryRepository=categoryRepository;
+        this.categoryRepository = categoryRepository;
     }
 
 
     @GetMapping("/products")
-    public String findAll(@ModelAttribute("products") Model  model) {
+    public String findAll(@ModelAttribute("products") Model model) {
         List<Product> product = new ArrayList<>();
         productService.findAll().forEach(product::add);
         model.addAttribute("productList", product);
@@ -41,7 +39,7 @@ public class ProductController {
     }
 
     @GetMapping("/products-add/{id}")
-    public String updateProduct (@PathVariable long id, @NotNull Model model) {
+    public String updateProduct(@PathVariable long id, Model model) {
         model.addAttribute("product", productService.findById(id));
 
         return "/products/products-add";
@@ -62,7 +60,7 @@ public class ProductController {
     @GetMapping("/products-add")
     public String saveForm(Model model) {
         List<Category> categories = new ArrayList<>();
-        categoryRepository.findAll().forEach(categories ::add);
+        categoryRepository.findAll().forEach(categories::add);
         model.addAttribute("categories", categories);
         model.addAttribute("products", new Product());
 

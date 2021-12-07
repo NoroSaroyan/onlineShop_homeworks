@@ -2,10 +2,8 @@ package ru.gb.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.gb.entity.User;
@@ -32,18 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) {
         Optional<User> mayBeUser = userRepository.findByEmail(userName);
-        if (mayBeUser.isEmpty()) {
-            throw new UsernameNotFoundException("User cannot be fount  by passed name: " + userName);
-        }
         User user = mayBeUser.get();
+        return (UserDetails) user;
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                user.getRoles()
-                        .stream()
-                        .map(role -> new SimpleGrantedAuthority(role.getName()))
-                        .toList()
-        );
     }
 }
